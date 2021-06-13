@@ -105,7 +105,7 @@ namespace Programming_Assignment_2_Summer_2021
             Console.WriteLine("");
             Console.WriteLine("Question 6");
             int[] arr = { 2, 3, 4 };
-            int target_sum = 9;
+            int target_sum = 5;
             targetSum(arr, target_sum);
             Console.WriteLine();
 
