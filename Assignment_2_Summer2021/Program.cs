@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Programming_Assignment_2_Summer_2021
 {
@@ -63,11 +64,11 @@ namespace Programming_Assignment_2_Summer_2021
             targetSum(arr, target_sum);
             Console.WriteLine();
 
-            ////Question 7
-            //  Console.WriteLine("Question 7");
-            //  int[,] scores = { { 1, 91 }, { 1, 92 }, { 2, 93 }, { 2, 97 }, { 1, 60 }, { 2, 77 }, { 1, 65 }, { 1, 87 }, { 1, 100 }, { 2, 100 }, { 2, 76 } };
-            //  HighFive(scores);
-            //  Console.WriteLine();
+            //Question 7
+            Console.WriteLine("Question 7");
+            int[,] scores = { { 1, 91 }, { 1, 92 }, { 2, 93 }, { 2, 97 }, { 1, 60 }, { 2, 77 }, { 1, 65 }, { 1, 87 }, { 1, 100 }, { 2, 100 }, { 2, 76 } };
+            HighFive(scores);
+            Console.WriteLine();
 
             //Question 8
             Console.WriteLine("Question 8");
@@ -91,18 +92,12 @@ namespace Programming_Assignment_2_Summer_2021
             Console.WriteLine();
         }
 
-        private static void HighFive(int[,] scores)
-        {
-            throw new NotImplementedException();
-        }
 
         //Q1
         public static void Intersection(int[] nums1, int[] nums2)
         {
             try
             {
-
-
                 HashSet<int> hashset1 = new HashSet<int>(nums1);
                 HashSet<int> hashset2 = new HashSet<int>(nums2);
                 HashSet<int> result = new HashSet<int>();
@@ -269,73 +264,60 @@ namespace Programming_Assignment_2_Summer_2021
                 throw;
             }
         }
+        //Q7
+        public static void HighFive(int[,] scores)
+        {
+            try
+            {
 
+                SortedDictionary<int, List<int>> map = new SortedDictionary<int, List<int>>();
+                for (int i = 0; i < scores.Length / 2; i++)
+                {
+                    int id = scores[i, 0];
+                    int score = scores[i, 1];
+                    if (!map.ContainsKey(id))
+                    {
+                        map.Add(id, new List<int>());
+                    }
+                    map[id].Add(score);
+                }
 
-        ////Q7
+                int[][] result = new int[map.Count][];
+                int j = 0;
+                foreach (KeyValuePair<int, List<int>> kvp in map)
+                {
+                    int total = 0;
+                    kvp.Value.Sort();
+                    kvp.Value.Reverse();
+                    for (int m = 0; m < 5; m++)
+                    {
+                        total += kvp.Value[m];
+                    }
+                    int avg = total / 5;
+                    result[j] = new int[] { kvp.Key, avg };
+                    j++;
+                }
+                //return result;
 
-        //public int[][] highfive(int[][] items)
-        //{
-        //    int rows = items.Length;
-        //    hashset<int> set = new hashset<int>();
+                foreach (var item in result)
+                {
+                    Console.Write(item[0].ToString() + " ");
+                    Console.Write(item[1].ToString());
+                    Console.WriteLine();
 
-        //    // first sort all items by grades
-        //    for (int i = 0; i < rows; i++)
-        //    {
-        //        int min = i;
-        //        set.Add(items[i][0]);
+                }
 
-        //        for (int j = i + 1; j < rows; j++)
-        //        {
-        //            if (items[j][1] < items[min][1])
-        //            {
-        //                min = j;
-        //            }
-        //        }
-        //        if (min != i)
-        //        {
-        //            int[] temp = items[i];
-        //            items[i] = items[min];
-        //            items[min] = temp;
-        //        }
-        //    }
+            }
+            catch (Exception)
+            {
 
-        //    // now start construct the answer array
-        //    object[] obj = set.toarray();
-        //    int id[] = new int[obj.Length];
-        //    int[][] ans = new int[obj.Length][2];
+                throw;
+            }
 
-        //    for (int i = 0; i < obj.Length; i++)
-        //    {
-        //        id[i] = (int)obj[i];
-        //        ans[i][0] = id[i];
-        //    }
+    }
 
-        //    // now focus on calculating the average score
-        //    for (int i = 0; i < obj.Length; i++)
-        //    {
-        //        int count = 0;
-        //        int sum = 0;
-        //        int j = rows - 1;
-        //        while (count < 5)
-        //        {
-        //            if (items[j][0] == ans[i][0])
-        //            {
-        //                sum += items[j][1];
-        //                count += 1;
-        //                j -= 1;
-        //            }
-
-        //            else { j -= 1; continue; }
-        //        }
-        //        ans[i][1] = sum / 5;
-        //    }
-        //    return ans;
-        //}
-
-
-
-        //Q8
-        public void RotateArray(int[] arr1, int k)
+            //Q8
+            public void RotateArray(int[] arr1, int k)
         {
             // speed up the rotation
             k %= arr1.Length;
